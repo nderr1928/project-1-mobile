@@ -2,8 +2,8 @@
     background-image: url('../images/defaultBackground.jpg');
     background-position: center;
     background-size: cover;
-    height: 360px;
-    width: 270px;
+    height: 1000px;
+    width: 100%;
 }
 
 #informationScreen{
