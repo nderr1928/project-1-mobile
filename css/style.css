@@ -1,15 +1,85 @@
-#titleScreen{
-    background-image: url('../images/defaultBackground.jpg');
-    background-position: center;
-    background-size: cover;
-    height: 1000px;
-    width: 100%;
-}
+/* Mobile first approach */
+    body{
+        height: 100vh;
+        width: 100vw;
+    }
+    /* Title screen */
+        #titleScreen{
+            height: 100%;
+            width: 100%;
+            background-image: url('../images/defaultBackground.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Lobster', cursive;
+            color: orange;
+            text-align: center;
+            display: block;
+        }
+        
+        #titleBox{
+            top: 15%;
+            position: relative;
+            background-color: rgba(192, 192, 192, 0.4);
+            border: black 2px solid;
+        }
 
-#informationScreen{
-    display: none;
-}
+        #titleScreen > div> h1{
+            font-size: 80px;
+            margin: 0;
+        }
 
-#gameScreen{
-    display: none;
-}
+        #titleScreen > h4{
+            bottom: 0;
+            margin-bottom: 8%;
+            position: absolute;
+            text-align: center;
+            display: block;
+            width: 100%;
+            animation-duration: 4s;
+        }
+
+    /* Instructions/Story Screen */
+        #instructionsScreen{
+            background-image: url('../images/defaultBackground.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            width: 100%;
+            display: none;
+        }
+
+        #storyBox{
+            background-color: rgba(192, 192, 192, 0.8);
+            border: black 2px solid;
+            margin: 0 10px 0 10px;
+            overflow: scroll;
+            display: block;
+            font-family: 'Abril Fatface', cursive;
+            top: 10px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            max-height: 625px;
+            height: 600px;
+        }
+
+        #storyBox > h3{
+            text-align: center;
+            margin: 0;
+        }
+
+        #storyBox > p{
+            margin: 8px 8px 8px 8px;
+        }
+
+        #startGame{
+            /* margin: 0 auto 0px auto; */
+            display: block;
+            position: absolute;
+            bottom: 30px;
+            width: 20%;
+            height: 50px;
+            left: 40%;
+        }
+
