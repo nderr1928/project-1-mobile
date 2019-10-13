@@ -91,7 +91,7 @@
             height: 100%;
             width: 100%;
             grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 2% 600px 8% 400px 5% 5% 1fr .25fr;
+            grid-template-rows: 3% 600px 8% 400px 5% 5% 1fr .25fr;
             grid-template-areas: 
                 "gameInfo gameInfo gameInfo"
                 "enemyImage enemyImage enemyImage"
@@ -120,6 +120,12 @@
 
         #gameInformation > h5{
             margin: 0;
+        }
+
+        #playerLevel{
+            height: 100%;
+            width: 100%;
+            background-color: rgba(192, 192, 192, 0.9);
         }
 
         #enemy-image-zone{
@@ -308,11 +314,11 @@
         #playerHP > h6 , #playerMP > h6{
             margin: 0;
             height: 10%; 
-
         }
 
         #currentMP, #currentHP{
             margin: 0;
+            font-size: 15px;
         }
 
         .progress{
