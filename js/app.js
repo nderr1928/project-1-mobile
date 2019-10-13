@@ -119,7 +119,7 @@ $('#playerLevel').on('pointerenter pointerover', function(){
 $("#playerLevel").on('pointerleave pointerout', function(){
     $($commandDescription).text('');
 });
-$('#playerLevel').on('pointerup',function(){
+$('#playerLevel').on('pointerdown',function(){
     if(showStats === false){
         showStats = true;
         $('#displayStats').css('display', 'flex');
