@@ -257,7 +257,7 @@ $($upperRightButton).on('dblclick', () => {
     }
 });
 
-$($upperRightButton).on('touchend', () => {
+$($upperRightButton).on('touchstart', () => {
     if(magicToggle === true && itemToggle === false){
         magicToggle = false;
         $upperLeftButton.text('Attack');
@@ -280,7 +280,7 @@ $($lowerLeftButton).on('dblclick', () => {
     }
 });
 
-$($lowerLeftButton).on('touchend', () => {
+$($lowerLeftButton).on('touchstart', () => {
     if(magicToggle === false && itemToggle === true){
         itemToggle = false;
         $upperLeftButton.css('visibility', 'visible');

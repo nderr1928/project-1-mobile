@@ -342,6 +342,10 @@
             height: 70%;
         }
 
+        #upperleft-button, #upperright-button, #lowerleft-button{
+            visibility: hidden;
+        }
+
         #description{
             grid-area: commandInfo;
             grid-column: 1/ span 3;
