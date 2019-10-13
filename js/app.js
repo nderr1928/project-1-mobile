@@ -14,6 +14,7 @@ let playerToggle = false;
 let gameOverToggle = false;
 let startingZone = true;
 let titleScreen = false;
+let showStats = false;
 
 $('html').click(function(){
     if(titleScreen === true){
@@ -116,22 +117,34 @@ $('#clearlog').hover(function(){
     }
 );
 
-$('#playerLevel').hover(function(){
-    console.log('hover');
-    $('#displayStats').css('display', 'block');
-    $('#displayStats').append(`<p style="color: white">Player Stats:</p>`);
-    $('#displayStats').append(`<p style="color: rgb(135,206,235)">Level = ${player.level}`);
-    $('#displayStats').append(`<p style="color: rgb(135,206,235)">Max HP = ${player.maxHP}</p>`);
-    $('#displayStats').append(`<p style="color: rgb(135,206,235)">Max MP = ${player.maxMP}</p>`);
-    $('#displayStats').append(`<p style="color: rgb(135,206,235)">Strength = ${player.strength}</p>`);
-    $('#displayStats').append(`<p style="color: rgb(135,206,235)">Defense = ${player.defense}</p>`);
-    $('#displayStats').append(`<p style="color: rgb(135,206,235)">MP Regen = ${player.manaRegen}</p>`);
-    $('#displayStats').append(`<p style="color: orange">Fire spell:<br>Cost = ${player.fireSpellProperties.spellCost} MP<br>Damage: ${player.fireSpellProperties.fireDmg}<br>Burn Chance = ${Math.floor(player.fireSpellProperties.burnChance * 100)}%</p>`);
-    $('#displayStats').append(`<p style="color: teal">Ice spell:<br>Cost = ${player.iceSpellProperties.spellCost} MP<br>Damage: ${player.iceSpellProperties.iceDmg}<br>Burn Chance = ${Math.floor(player.iceSpellProperties.frostbiteChance * 100)}%</p>`);
-    $('#displayStats').append(`<p style="color: rgb(218,112,214)">Lightning spell:<br>Cost = ${player.lightningSpellProperties.spellCost} MP<br>Damage: ${player.lightningSpellProperties.lightningDmg}<br>Burn Chance = ${Math.floor(player.lightningSpellProperties.shockChance * 100)}%</p>`);
-}, function(){
-    $('#displayStats').empty();
-    $('#displayStats').css('display', 'none');
+$('#playerLevel').click(function(){
+    if(showStats === false){
+        showStats = true;
+        $('#displayStats').css('display', 'flex');
+        $('#displayStats').append(`<p style="color: white">Player Stats:</p>`);
+        $('#displayStats').append(`<p style="color: rgb(135,206,235)">Level = ${player.level}`);
+        $('#displayStats').append(`<p style="color: rgb(135,206,235)">Max HP = ${player.maxHP}</p>`);
+        $('#displayStats').append(`<p style="color: rgb(135,206,235)">Max MP = ${player.maxMP}</p>`);
+        $('#displayStats').append(`<p style="color: rgb(135,206,235)">Strength = ${player.strength}</p>`);
+        $('#displayStats').append(`<p style="color: rgb(135,206,235)">Defense = ${player.defense}</p>`);
+        $('#displayStats').append(`<p style="color: rgb(135,206,235)">MP Regen = ${player.manaRegen}</p>`);
+        $('#displayStats').append(`<p style="color: orange">Fire spell:</p>`);
+        $('#displayStats').append(`<p style="color: orange">Cost = ${player.fireSpellProperties.spellCost} MP</p>`);
+        $('#displayStats').append(`<p style="color: orange">Damage = ${player.fireSpellProperties.fireDmg}</p>`);
+        $('#displayStats').append(`<p style="color: orange">Burn Chance = ${Math.floor(player.fireSpellProperties.burnChance * 100)}%</p>`);
+        $('#displayStats').append(`<p style="color: teal">Ice spell:</p>`);
+        $('#displayStats').append(`<p style="color: teal">Cost = ${player.iceSpellProperties.spellCost} MP</p>`);
+        $('#displayStats').append(`<p style="color: teal">Damage = ${player.iceSpellProperties.iceDmg}</p>`);
+        $('#displayStats').append(`<p style="color: teal">Frostbite Chance = ${Math.floor(player.iceSpellProperties.frostbiteChance * 100)}%</p>`);
+        $('#displayStats').append(`<p style="color: rgb(218,112,214)">Lightning spell:</p>`);
+        $('#displayStats').append(`<p style="color: rgb(218,112,214)">Cost = ${player.lightningSpellProperties.spellCost} MP</p>`);
+        $('#displayStats').append(`<p style="color: rgb(218,112,214)">Damage = ${player.lightningSpellProperties.lightningDmg}</p>`);
+        $('#displayStats').append(`<p style="color: rgb(218,112,214)">Shock Chance = ${Math.floor(player.lightningSpellProperties.shockChance * 100)}%</p>`);
+    } else if(showStats === true){
+        showStats = false;
+        $('#displayStats').empty();
+        $('#displayStats').css('display', 'none');
+    }
 })
 
 //All click commands
@@ -373,16 +386,16 @@ const player = {
         game.battleAnimation('url(images/attacks/slash_slow.gif)')
         if(atkDmg <= 1){
             game.currentEnemy.HP--;
-            $('#enemyHealth').text(game.currentEnemy.HP);
+            $('#enemyCurrentHP').text(game.currentEnemy.HP);
             $($update).prepend(`<p style="color: rgb(135,206,235)">You attack the enemy and deal 1 point of damage.</p>`);
         } else if(game.currentEnemy.HP - atkDmg <= 0){
             game.currentEnemy.HP = 0;
-            $('#enemyHealth').text(game.currentEnemy.HP);
+            $('#enemyCurrentHP').text(game.currentEnemy.HP);
             $($update).prepend(`<p style="color: rgb(135,206,235)">You attack the enemy and deal ${atkDmg} points of damage.</p>`);
         } 
         else{
             game.currentEnemy.HP -= atkDmg;
-            $('#enemyHealth').text(game.currentEnemy.HP);
+            $('#enemyCurrentHP').text(game.currentEnemy.HP);
             $($update).prepend(`<p style="color: rgb(135,206,235)">You attack the enemy and deal ${atkDmg} points of damage.</p>`);
         }
         playerToggle = false;
@@ -406,11 +419,11 @@ const player = {
             }
             if(game.currentEnemy.HP - fireDmg <= 0){
                 game.currentEnemy.HP = 0;
-                $('#enemyHealth').text(game.currentEnemy.HP);
+                $('#enemyCurrentHP').text(game.currentEnemy.HP);
                 $($update).prepend(`<p style="color: orange">You cast ${player.fireSpellProperties.name} and deal ${fireDmg} points of damage.</p>`);
             } else{
                 game.currentEnemy.HP -= fireDmg;
-                $('#enemyHealth').text(game.currentEnemy.HP);
+                $('#enemyCurrentHP').text(game.currentEnemy.HP);
                 $($update).prepend(`<p style="color: orange">You cast ${player.fireSpellProperties.name} and deal ${fireDmg} points of damage.</p>`);
             }
             if(Math.random() < player.fireSpellProperties.burnChance && game.currentEnemy.burn === false){
@@ -448,11 +461,11 @@ const player = {
             }
             if(game.currentEnemy.HP - iceDmg <= 0){
                 game.currentEnemy.HP = 0;
-                $('#enemyHealth').text(game.currentEnemy.HP);
+                $('#enemyCurrentHP').text(game.currentEnemy.HP);
                 $($update).prepend(`<p style="color: teal">You used ${player.iceSpellProperties.name} and deal ${iceDmg} points of damage.</p>`);
             } else{
                 game.currentEnemy.HP -= iceDmg;
-                $('#enemyHealth').text(game.currentEnemy.HP);
+                $('#enemyCurrentHP').text(game.currentEnemy.HP);
                 $($update).prepend(`<p style="color: teal">You used ${player.iceSpellProperties.name} and deal ${iceDmg} points of damage.</p>`);
             }
             if(Math.random() < player.iceSpellProperties.frostbiteChance && game.currentEnemy.frostbite === false){
@@ -491,11 +504,11 @@ const player = {
             }
             if(game.currentEnemy.HP - lightningDmg <= 0){
                 game.currentEnemy.HP = 0;
-                $('#enemyHealth').text(game.currentEnemy.HP);
+                $('#enemyCurrentHP').text(game.currentEnemy.HP);
                 $($update).prepend(`<p style="color: rgb(218,112,214)">You used ${player.lightningSpellProperties.name} and deal ${lightningDmg} points of damage.</p>`);
             } else{
                 game.currentEnemy.HP -= lightningDmg;
-                $('#enemyHealth').text(game.currentEnemy.HP);
+                $('#enemyCurrentHP').text(game.currentEnemy.HP);
                 $($update).prepend(`<p style="color: rgb(218,112,214)">You used ${player.lightningSpellProperties.name} and deal ${lightningDmg} points of damage.</p>`);
             }
             if(Math.random() < player.lightningSpellProperties.shockChance && game.currentEnemy.shock === false){
@@ -640,49 +653,49 @@ changeZones(){
     if(startingZone === true){
         startingZone = false;
         alert(`You begin your journey by setting course through open fields to reach the Archway Caves. The enemies you will encounter are simple, but keep your guard up - you don't want the journey to end as soon as it has started.`);
-        $('main').css('background-image', this.fields.imageURL);
+        $('#enemy-image-zone').css('background-image', this.fields.imageURL);
         $('#zone-info').text(`Zone: ${this.fields.name}`);
         game.totalNumBattleRounds = this.fields.numBattles;
         game.zone = this.fields.name;
     } else if(game.zone === this.fields.name && startingZone === false){
         alert('You have made it to the entrnace of Archway Cave. A guard stands near. You approach the entrance but the guard says that you must defeat them in battle before they can allow you to pass. The only way forward is through them!');
-        $('main').css('background-image', this.caveEntrance.imageURL);
+        $('#enemy-image-zone').css('background-image', this.caveEntrance.imageURL);
         $('#zone-info').text(`Zone: ${this.caveEntrance.name}`);
         game.totalNumBattleRounds = this.caveEntrance.numBattles;
         game.zone = this.caveEntrance.name;
     }else if(game.zone === this.caveEntrance.name && startingZone === false){
         alert('You have defeated the guard and he allows you to pass. The journey through Archway Cave is on its way.');
-        $('main').css('background-image', this.cave.imageURL);
+        $('#enemy-image-zone').css('background-image', this.cave.imageURL);
         $('#zone-info').text(`Zone: ${this.cave.name}`);
         game.totalNumBattleRounds = this.cave.numBattles;
         game.zone = this.cave.name;
     }else if(game.zone === this.cave.name && startingZone === false){
         alert('You see the light of the moon shine through as you approach stairs. As you approach the stairs, a dark figure emerges from the shadows. Without a word it draws its sword and prepares to strike. Look alive!');
-        $('main').css('background-image', this.caveExit.imageURL);
+        $('#enemy-image-zone').css('background-image', this.caveExit.imageURL);
         $('#zone-info').text(`Zone: ${this.caveExit.name}`);
         game.totalNumBattleRounds = this.caveExit.numBattles;
         game.zone = this.caveExit.name;
     }else if(game.zone === this.caveExit.name && startingZone === false){
         alert(`You exit the cave to a green haze and the moon providing the only light. You see lines of tombstones and the restless undead walking around. The Castle to Hell lies just beyond`);
-        $('main').css('background-image', this.graveyard.imageURL);
+        $('#enemy-image-zone').css('background-image', this.graveyard.imageURL);
         $('#zone-info').text(`Zone: ${this.graveyard.name}`);
         game.totalNumBattleRounds = this.graveyard.numBattles;
         game.zone = this.graveyard.name;
     }else if(game.zone === this.graveyard.name && startingZone === false){
         alert(`Making it through the graveyard, you stumble across a fortress type castle. This must be the Castle to Hell. A giant ogre with a club starts charging at you, prepare for battle!`);
-        $('main').css('background-image', this.castleEntrance.imageURL);
+        $('#enemy-image-zone').css('background-image', this.castleEntrance.imageURL);
         $('#zone-info').text(`Zone: ${this.castleEntrance.name}`);
         game.totalNumBattleRounds = this.castleEntrance.numBattles;
         game.zone = this.castleEntrance.name;
     }else if(game.zone === this.castleEntrance.name && startingZone === false){
         alert(`You make it into the Castle to Hell. You must fight past the demons inside to get through the portal to fight the Demon Overlord!`);
-        $('main').css('background-image', this.castleInterior.imageURL);
+        $('#enemy-image-zone').css('background-image', this.castleInterior.imageURL);
         $('#zone-info').text(`Zone: ${this.castleInterior.name}`);
         game.totalNumBattleRounds = this.castleInterior.numBattles;
         game.zone = this.castleInterior.name;
     }else if(game.zone === this.castleInterior.name && startingZone === false){
         alert(`You have finally made it to the Demon Overlord. He's expected you and prepared accordingly. It's now or never - time to end this!`);
-        $('main').css('background-image', this.castleThroneRoom.imageURL);
+        $('#enemy-image-zone').css('background-image', this.castleThroneRoom.imageURL);
         $('#zone-info').text(`Zone: ${this.castleThroneRoom.name}`);
         game.totalNumBattleRounds = this.castleThroneRoom.numBattles;
         game.zone = this.castleThroneRoom.name;
@@ -730,11 +743,11 @@ selectEnemy(){
         game.currentEnemy.height = zones.fields.enemies[randomIndex].height;
         game.currentEnemy.width = zones.fields.enemies[randomIndex].width;
         game.currentEnemy.topMargin = zones.fields.enemies[randomIndex].topMargin;
-        $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
+        // $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyHealth').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -763,11 +776,11 @@ selectEnemy(){
         game.currentEnemy.height = zones.caveEntrance.enemies[randomIndex].height;
         game.currentEnemy.width = zones.caveEntrance.enemies[randomIndex].width;
         game.currentEnemy.topMargin = zones.caveEntrance.enemies[randomIndex].topMargin;
-        $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
+        // $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyHealth').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -796,11 +809,11 @@ selectEnemy(){
         game.currentEnemy.height = zones.cave.enemies[randomIndex].height;
         game.currentEnemy.width = zones.cave.enemies[randomIndex].width;
         game.currentEnemy.topMargin = zones.cave.enemies[randomIndex].topMargin;
-        $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
+        // $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyHealth').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -829,11 +842,11 @@ selectEnemy(){
         game.currentEnemy.height = zones.caveExit.enemies[randomIndex].height;
         game.currentEnemy.width = zones.caveExit.enemies[randomIndex].width;
         game.currentEnemy.topMargin = zones.caveExit.enemies[randomIndex].topMargin;
-        $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
+        // $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyHealth').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -862,11 +875,11 @@ selectEnemy(){
         game.currentEnemy.height = zones.graveyard.enemies[randomIndex].height;
         game.currentEnemy.width = zones.graveyard.enemies[randomIndex].width;
         game.currentEnemy.topMargin = zones.graveyard.enemies[randomIndex].topMargin;
-        $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
+        // $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyHealth').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -895,11 +908,11 @@ selectEnemy(){
         game.currentEnemy.height = zones.castleEntrance.enemies[randomIndex].height;
         game.currentEnemy.width = zones.castleEntrance.enemies[randomIndex].width;
         game.currentEnemy.topMargin = zones.castleEntrance.enemies[randomIndex].topMargin;
-        $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
+        // $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyHealth').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -928,11 +941,11 @@ selectEnemy(){
         game.currentEnemy.height = zones.castleInterior.enemies[randomIndex].height;
         game.currentEnemy.width = zones.castleInterior.enemies[randomIndex].width;
         game.currentEnemy.topMargin = zones.castleInterior.enemies[randomIndex].topMargin;
-        $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
+        // $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyHealth').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -961,11 +974,11 @@ selectEnemy(){
         game.currentEnemy.height = zones.castleThroneRoom.enemies[randomIndex].height;
         game.currentEnemy.width = zones.castleThroneRoom.enemies[randomIndex].width;
         game.currentEnemy.topMargin = zones.castleThroneRoom.enemies[randomIndex].topMargin;
-        $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
+        // $('#enemy-image').css('margin-top', game.currentEnemy.topMargin);
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyHealth').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -985,7 +998,7 @@ enemyAttack(){
             if(game.currentEnemy.burn === true){
                 $($update).prepend(`<p style="color: orange">The enemy feels the burn and takes 1 point of damage.`);
                 game.currentEnemy.HP--;
-                $('#enemyHealth').text(game.currentEnemy.HP);
+                $('#enemyCurrentHP').text(game.currentEnemy.HP);
             }
             if(game.currentEnemy.HP <= 0){
                 game.checkDeath();
@@ -1036,7 +1049,7 @@ battleAnimation(imageURL){
     }, 1200);
 },
 gameStart(){
-    $('#enemyHealth').empty();
+    $('#enemyCurrentHP').empty();
     $('#currentEnemyWeakness').empty();
     $('#currentEnemyDebuffs').empty();
     $($upperLeftButton).css('visibility', 'visible');
@@ -1064,7 +1077,7 @@ checkDeath(){
                 $lowerRightButton.css('visibility', 'visible');
                 $('#enemy-image').css('height', '193px');
                 $('#enemy-image').css('width', '200px');
-                $('#enemy-image').css('margin-top', '129px');
+                // $('#enemy-image').css('margin-top', '129px');
                 $('#enemy-image').css('background-image', 'url(images/enemies/defeated.png)');
                 battleToggle = false;
                 playerToggle = false;
@@ -1091,7 +1104,7 @@ checkDeath(){
                 $('#enemy-image').css('background-image', 'url(images/gameover.gif)');
                 $('#enemy-image').css('height', '300px');
                 $('#enemy-image').css('width', '300px');
-                $('#enemy-image').css('margin-top', '80px');
+                // $('#enemy-image').css('margin-top', '80px');
                 gameOverToggle = true;
                 battleToggle = false;
                 playerToggle = false;
@@ -1121,7 +1134,7 @@ startOver(){
             $('#manaBar').css('width', `${(player.currentMP/player.maxMP)*100}%`);
             $('#enemy-image').css('height', '150px');
             $('#enemy-image').css('width', '150px');
-            $('#enemy-image').css('margin-top', '160px');
+            // $('#enemy-image').css('margin-top', '160px');
             $lowerRightButton.text('');
             $lowerLeftButton.css('visibility', 'visible');
             $upperLeftButton.css('visibility', 'visible');
