@@ -112,6 +112,13 @@ $('#clearlog').on('pointerleave pointerout', function(){
 
 //All click commands
 //Show player stats
+$('#playerLevel').on('pointerenter pointerover', function(){
+        $($commandDescription).text(`Show player stats`);
+    });
+
+$("#playerLevel").on('pointerleave pointerout', function(){
+    $($commandDescription).text('');
+});
 $('#playerLevel').on('pointerup',function(){
     if(showStats === false){
         showStats = true;
