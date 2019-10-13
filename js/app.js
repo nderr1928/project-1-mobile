@@ -55,8 +55,7 @@ $($upperLeftButton).on('touchstart', function(){
 $($upperLeftButton).on('touchcancel', function(){
     console.log('event cancelled.');
     $($commandDescription).text(``);
-    }
-);
+});
 
 //Top right
 $($upperRightButton).hover(function(){
@@ -74,6 +73,18 @@ $($upperRightButton).hover(function(){
     }
 );
 
+$($upperRightButton).on('touchstart', function(){
+    if(magicToggle === false && itemToggle === false && battleToggle === true){
+        $($commandDescription).text('Choose a spell to cast');
+    }
+    if(magicToggle === true && itemToggle === false && battleToggle === true){
+        $($commandDescription).text('Double click to return to main command screen');
+    }
+    if(magicToggle === false && itemToggle === true && battleToggle === true){
+        $($commandDescription).text(`Restore 50% of max HP (${Math.ceil(player.maxHP/2)} points)`);
+    }
+});
+
 //Bottom left
 $($lowerLeftButton).hover(function(){
     if(itemToggle === false && magicToggle === false && battleToggle === true){
@@ -89,6 +100,18 @@ $($lowerLeftButton).hover(function(){
         $($commandDescription).text('');
     }
 );
+
+$($lowerLeftButton).on('touchstart', function(){
+    if(itemToggle === false && magicToggle === false && battleToggle === true){
+        $($commandDescription).text('Use an item');
+    }
+    if(magicToggle === false && itemToggle === true && battleToggle === true){
+        $($commandDescription).text('Double click to return to main command screen');
+    }
+    if(magicToggle === true && itemToggle === false && battleToggle === true){
+        $($commandDescription).text(`Deal ${player.iceSpellProperties.iceDmg} points of ice damage - ${player.iceSpellProperties.frostbiteChance * 100}% chance of frostbite (enemy atk reduced by 10%)`);
+    }
+});
 
 //Bottom right
 $($lowerRightButton).hover(function(){
@@ -108,6 +131,21 @@ $($lowerRightButton).hover(function(){
         $($commandDescription).text('');
     }
 );
+
+$($lowerRightButton).on('touchstart', function(){
+    if(magicToggle === false && itemToggle === false && battleToggle === false && playerToggle === false){
+        $($commandDescription).text('Begin the battle');
+    }
+    if(magicToggle === true && itemToggle === false && battleToggle === true){
+        $($commandDescription).text(`Deal ${player.lightningSpellProperties.lightningDmg} points of lightning damage - ${player.lightningSpellProperties.shockChance * 100}% chance of shock (enemy cannot attack next turn)`);
+    }
+    if(magicToggle === false && itemToggle === true && battleToggle === true){
+        $($commandDescription).text(`Restore 50% of max MP (${Math.ceil(player.maxMP/2)} points)`);
+    }
+    if(gameOverToggle === true){
+        $($commandDescription).text(`Start over with current level`);
+    }
+});
 
 //Log clear button
 $('#clearlog').hover(function(){
@@ -219,8 +257,30 @@ $($upperRightButton).on('dblclick', () => {
     }
 });
 
+$($upperRightButton).on('touchend', () => {
+    if(magicToggle === true && itemToggle === false){
+        magicToggle = false;
+        $upperLeftButton.text('Attack');
+        $upperRightButton.text('Magic');
+        $lowerLeftButton.text('Item');
+        $lowerRightButton.css('visibility', 'hidden');
+        $lowerRightButton.text('');
+    }
+});
+
 //Commands to return to main command screen from item menu
 $($lowerLeftButton).on('dblclick', () => {
+    if(magicToggle === false && itemToggle === true){
+        itemToggle = false;
+        $upperLeftButton.css('visibility', 'visible');
+        $upperRightButton.text('Magic');
+        $lowerLeftButton.text('Item');
+        $lowerRightButton.css('visibility', 'hidden');
+        $lowerRightButton.text('');
+    }
+});
+
+$($lowerLeftButton).on('touchend', () => {
     if(magicToggle === false && itemToggle === true){
         itemToggle = false;
         $upperLeftButton.css('visibility', 'visible');
