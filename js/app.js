@@ -13,7 +13,7 @@ let battleToggle = false;
 let playerToggle = false;
 let gameOverToggle = false;
 let startingZone = true;
-let titleScreen = false;
+let titleScreen = true;
 let showStats = false;
 let commandScreen = false;
 
@@ -1098,6 +1098,8 @@ startOver(){
             $('#manaBar').css('width', `${(player.currentMP/player.maxMP)*100}%`);
             $('#enemy-image').css('height', '150px');
             $('#enemy-image').css('width', '150px');
+            player.healthPotions = 3,
+            player.manaPotions = 3,
             // $('#enemy-image').css('margin-top', '160px');
             $lowerRightButton.text('');
             $lowerLeftButton.css('visibility', 'visible');
