@@ -269,11 +269,13 @@ const player = {
         checkProgress(){
             if(player.fireSpellProperties.exp >= player.fireSpellProperties.nextLvl){
                 $($update).prepend('<p style="color: orange">Your fire spell has improved!</p>');
+                let levelIncrease = 2;
                 player.fireSpellProperties.fireDmg++;
                 player.fireSpellProperties.burnChance += 0.01;
                 player.fireSpellProperties.spellCost++;
                 $($update).prepend(`<p style="color: orange">Fire spell:<br>Cost = ${player.fireSpellProperties.spellCost} MP<br>Damage: ${player.fireSpellProperties.fireDmg}<br>Burn Chance = ${Math.floor(player.fireSpellProperties.burnChance * 100)}%</p>`);
-                player.fireSpellProperties.nextLvl +=2;
+                player.fireSpellProperties.nextLvl += levelIncrease;
+                levelIncrease++;
             }
         }
     },
@@ -288,11 +290,13 @@ const player = {
         checkProgress(){
             if(player.iceSpellProperties.exp >= player.iceSpellProperties.nextLvl){
                 $($update).prepend('<p style="color: teal">Your ice spell has improved!</p>');
+                let levelIncrease = 2;
                 player.iceSpellProperties.iceDmg++;
                 player.iceSpellProperties.frostbiteChance += 0.01;
                 player.iceSpellProperties.spellCost++;
                 $($update).prepend(`<p style="color: teal">Ice spell:<br>Cost = ${player.iceSpellProperties.spellCost} MP<br>Damage: ${player.iceSpellProperties.iceDmg}<br>Frostbite Chance = ${Math.floor(player.iceSpellProperties.frostbiteChance * 100)}%</p>`);
-                player.iceSpellProperties.nextLvl +=2;
+                player.iceSpellProperties.nextLvl += levelIncrease;
+                levelIncrease++;
             }
         }
     },
@@ -307,11 +311,13 @@ const player = {
         checkProgress(){
             if(player.lightningSpellProperties.exp >= player.lightningSpellProperties.nextLvl){
                 $($update).prepend('<p style="color: rgb(218,112,214)">Your lightning spell has improved!</p>');
+                let levelIncrease = 2;
                 player.lightningSpellProperties.lightningDmg++;
                 player.lightningSpellProperties.shockChance += 0.01;
                 player.lightningSpellProperties.spellCost++;
                 $($update).prepend(`<p style="color: rgb(218,112,214)">Lightning spell:<br>Cost = ${player.lightningSpellProperties.spellCost} MP<br>Damage: ${player.lightningSpellProperties.lightningDmg}<br>Shock Chance = ${Math.floor(player.lightningSpellProperties.shockChance * 100)}%</p>`);
-                player.lightningSpellProperties.nextLvl +=2;
+                player.lightningSpellProperties.nextLvl += levelIncrease;
+                levelIncrease++;
             }
         }
     },
