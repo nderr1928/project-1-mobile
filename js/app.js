@@ -31,7 +31,7 @@ $($startGame).click(function(){
 
 //Hover functions for all buttons
 //Top left
-$($upperLeftButton).on('pointerenter pointerover', function(){
+$($upperLeftButton).on('pointerdown pointerover', function(){
     if(magicToggle === false && itemToggle === false && battleToggle === true){
         $($commandDescription).text(`Attack the enemy`);
     }
@@ -45,7 +45,7 @@ $($upperLeftButton).on('pointerleave pointerout', function(){
 });
 
 //Top right
-$($upperRightButton).on('pointerenter pointerover', function(){
+$($upperRightButton).on('pointerdown pointerover', function(){
     if(magicToggle === false && itemToggle === false && battleToggle === true){
         $($commandDescription).text('Choose a spell to cast');
     }
@@ -63,7 +63,7 @@ $($upperRightButton).on('pointerleave pointerout', function(){
 });
 
 //Bottom left
-$($lowerLeftButton).on('pointerenter pointerover', function(){
+$($lowerLeftButton).on('pointerdown pointerover', function(){
     if(itemToggle === false && magicToggle === false && battleToggle === true){
         $($commandDescription).text('Use an item');
     }
@@ -81,7 +81,7 @@ $($lowerLeftButton).on('pointerleave pointerout', function(){
 });
 
 //Bottom right
-$($lowerRightButton).on('pointerenter pointerover',function(){
+$($lowerRightButton).on('pointerdown pointerover',function(){
     if(magicToggle === false && itemToggle === false && battleToggle === false && playerToggle === false){
         $($commandDescription).text('Begin the battle');
     }
@@ -102,7 +102,7 @@ $($lowerRightButton).on('pointerleave pointerout', function(){
 });
 
 //Log clear button
-$('#clearlog').on('pointerenter pointerover', function(){
+$('#clearlog').on('pointerdown pointerover', function(){
     $($commandDescription).text(`Clear log of all text`);
     });
 $('#clearlog').on('pointerleave pointerout', function(){
@@ -112,14 +112,14 @@ $('#clearlog').on('pointerleave pointerout', function(){
 
 //All click commands
 //Show player stats
-$('#playerLevel').on('pointerenter pointerover', function(){
+$('#playerLevel').on('pointerdown pointerover', function(){
         $($commandDescription).text(`Show player stats`);
     });
 
 $("#playerLevel").on('pointerleave pointerout', function(){
     $($commandDescription).text('');
 });
-$('#playerLevel').on('pointerdown',function(){
+$('#playerLevel').on('pointerup',function(){
     if(showStats === false){
         showStats = true;
         $('#displayStats').css('display', 'flex');
@@ -150,7 +150,7 @@ $('#playerLevel').on('pointerdown',function(){
 });
 
 //Top left - Attack or fire
-$($upperLeftButton).on('click touchend', () => {
+$($upperLeftButton).on('pointerup', () => {
     if(magicToggle === true && itemToggle === false && battleToggle === true && playerToggle === true){
         player.fireSpell();
     }
@@ -160,14 +160,21 @@ $($upperLeftButton).on('click touchend', () => {
 });
 
 //Top right - Magic menu or health potion
-$($upperRightButton).on('click touchend', () => {
+$($upperRightButton).on('pointerup', () => {
     if(magicToggle === false && itemToggle === false && battleToggle === true && playerToggle === true){
-        magicToggle = true;
-        $upperLeftButton.text(`Fire (${player.fireSpellProperties.spellCost} MP)`);
-        $upperRightButton.text('Return');
-        $lowerLeftButton.text(`Ice (${player.iceSpellProperties.spellCost} MP)`);
-        $lowerRightButton.css('visibility', 'visible');
-        $lowerRightButton.text(`Lightning (${player.lightningSpellProperties.spellCost} MP)`);
+        let timer = 0;
+        let pause = setInterval(function(){
+            if(timer === 1){
+                clearInterval(pause);
+                magicToggle = true;
+                $upperLeftButton.text(`Fire (${player.fireSpellProperties.spellCost} MP)`);
+                $upperRightButton.text('Return');
+                $lowerLeftButton.text(`Ice (${player.iceSpellProperties.spellCost} MP)`);
+                $lowerRightButton.css('visibility', 'visible');
+                $lowerRightButton.text(`Lightning (${player.lightningSpellProperties.spellCost} MP)`);
+            }
+            timer++
+        }, 50);
     }
     if(magicToggle === false && itemToggle === true && battleToggle === true && playerToggle === true){
         player.healthPotion();
@@ -175,22 +182,30 @@ $($upperRightButton).on('click touchend', () => {
 });
 
 //Bottom left - to item menu or ice
-$($lowerLeftButton).on('click touchend', () => {
+$($lowerLeftButton).on('pointerup', () => {
     if(magicToggle === false && itemToggle === false && battleToggle === true && playerToggle === true){
-        itemToggle = true;
-        $upperRightButton.text(`Health Potion (x${player.healthPotions})`);
-        $lowerLeftButton.text('Return');
-        $lowerRightButton.css('visibility', 'visible');
-        $upperLeftButton.css('visibility', 'hidden');
-        $lowerRightButton.text(`Mana Potion (x${player.manaPotions})`);
+        let timer = 0;
+        let pause = setInterval(function(){
+            if(timer === 1){
+                clearInterval(pause);
+                itemToggle = true;
+                $upperRightButton.text(`Health Potion (x${player.healthPotions})`);
+                $lowerLeftButton.text('Return');
+                $lowerRightButton.css('visibility', 'visible');
+                $upperLeftButton.css('visibility', 'hidden');
+                $lowerRightButton.text(`Mana Potion (x${player.manaPotions})`);
+            }
+            timer++;
+        }, 50);
     }
     if(magicToggle === true && itemToggle === false && battleToggle === true && playerToggle === true){
+        console.log("ice spell");
         player.iceSpell();
     }
 });
 
 //Bottom right - start battle or lightning or mana potion
-$lowerRightButton.on('click touchend', function() {
+$lowerRightButton.on('pointerup', function() {
     if(magicToggle === false && itemToggle === false && battleToggle === false && playerToggle === false && gameOverToggle === true ){
         console.log('restart');
         game.startOver();
@@ -209,7 +224,7 @@ $lowerRightButton.on('click touchend', function() {
 
 //dblclcik return commands
 //Commands to return to main command screen from magic menu
-$($upperRightButton).on('dblclick touchend', () => {
+$($upperRightButton).on('pointerup', () => {
     if(magicToggle === true && itemToggle === false && battleToggle === true && playerToggle === true){
         magicToggle = false;
         $upperLeftButton.text('Attack');
@@ -220,19 +235,8 @@ $($upperRightButton).on('dblclick touchend', () => {
     }
 });
 
-// $($upperRightButton).on('touchstart', () => {
-//     if(magicToggle === true && itemToggle === false && battleToggle === true && playerToggle === true){
-//         magicToggle = false;
-//         $upperLeftButton.text('Attack');
-//         $upperRightButton.text('Magic');
-//         $lowerLeftButton.text('Item');
-//         $lowerRightButton.css('visibility', 'hidden');
-//         $lowerRightButton.text('');
-//     }
-// });
-
 //Commands to return to main command screen from item menu
-$($lowerLeftButton).on('dblclick touchend', () => {
+$($lowerLeftButton).on('pointerup', () => {
     if(magicToggle === false && itemToggle === true && battleToggle === true && playerToggle === true){
         itemToggle = false;
         $upperLeftButton.css('visibility', 'visible');
@@ -242,17 +246,6 @@ $($lowerLeftButton).on('dblclick touchend', () => {
         $lowerRightButton.text('');
     }
 });
-
-// $($lowerLeftButton).on('touchstart', () => {
-//     if(magicToggle === false && itemToggle === true && battleToggle === true && playerToggle === true){
-//         itemToggle = false;
-//         $upperLeftButton.css('visibility', 'visible');
-//         $upperRightButton.text('Magic');
-//         $lowerLeftButton.text('Item');
-//         $lowerRightButton.css('visibility', 'hidden');
-//         $lowerRightButton.text('');
-//     }
-// });
 
 //Enemies
 class enemies{
