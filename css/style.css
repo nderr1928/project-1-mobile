@@ -91,7 +91,7 @@
             height: 100%;
             width: 100%;
             grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 2% 30% 8% 20% 5% 5% 17% 13%;
+            grid-template-rows: 2% 600px 8% 400px 5% 5% 1fr .75fr;
             grid-template-areas: 
                 "gameInfo gameInfo gameInfo"
                 "enemyImage enemyImage enemyImage"
@@ -107,10 +107,19 @@
             grid-area: gameInfo;
             grid-row: 1;
             grid-column: 1/ span 3;
-            display: flex;
-            flex-direction: row;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr;
+            align-items: center;
+            justify-items: center;
+            /* flex-direction: row;
             justify-content: space-around;
+            align-items: center; */
             background-color: rgba(192, 192, 192, 0.8);
+        }
+
+        #gameInformation > h5{
+            margin: 0;
         }
 
         #enemy-image-zone{
@@ -130,6 +139,17 @@
         #enemy-image{
             background-size: cover;
             background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #attack-animation{
+            height: 160px;
+            width: 160px;
+            background-size: cover;
+            background-position: center;
         }
 
         #enemyHP{
@@ -140,6 +160,7 @@
             grid-template-rows: 1fr 2fr;
             grid-template-columns: 1fr;
             border: 1px black solid;
+            /* align-items: center; */
         }
 
         #enemyCurrentHP{
@@ -250,7 +271,7 @@
             display: flex;
             align-self: end;
             border-right: 1px white solid;
-            max-height: 420px;
+            max-height: 400px;
         }
 
         #playerHP{
