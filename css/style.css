@@ -91,7 +91,7 @@
             height: 100%;
             width: 100%;
             grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 2% 600px 8% 400px 5% 5% 1fr .75fr;
+            grid-template-rows: 2% 600px 8% 400px 5% 5% 1fr .25fr;
             grid-template-areas: 
                 "gameInfo gameInfo gameInfo"
                 "enemyImage enemyImage enemyImage"
@@ -340,6 +340,7 @@
         #combat-block > button{
             width: 90%;
             height: 70%;
+            font-size: 30px;
         }
 
         #upperleft-button, #upperright-button, #lowerleft-button{
@@ -351,29 +352,19 @@
             grid-column: 1/ span 3;
             grid-row: 8;
             margin: 0;
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 20px 1fr;
-            background-color: gray;
-        }
-
-        #description > h6{
-            margin: 0;
-            position: relative;
-            top: 5px;
-        }
-
-        #commandDescription{
-            margin: 0;
-            text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            background-color: gray;
+            height: 100%;
+            width: 100%;
+            font-size: 50px;
         }
 
-        #displayStats{
+        #displayStats, #commandScreen{
             position: absolute;
-            height: 60%;
+            /* height: 60%; */
             width: 30%;
             left: 35%;
             top: 10%;
@@ -385,4 +376,9 @@
             justify-content: center;
             align-items: center;
             border: 1px black solid;
+        }
+
+        #commandScreen > p{
+            margin: 5px;
+            text-align: left;
         }

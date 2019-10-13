@@ -15,6 +15,7 @@ let gameOverToggle = false;
 let startingZone = true;
 let titleScreen = false;
 let showStats = false;
+let commandScreen = false;
 
 $('html').click(function(){
     if(titleScreen === true){
@@ -29,87 +30,6 @@ $($startGame).click(function(){
     $('#gameScreen').css('display', 'grid');
 })
 
-//Hover functions for all buttons
-//Top left
-$($upperLeftButton).on('pointerdown pointerover', function(){
-    if(magicToggle === false && itemToggle === false && battleToggle === true){
-        $($commandDescription).text(`Attack the enemy`);
-    }
-    if(magicToggle === true && itemToggle === false && battleToggle === true){
-        $($commandDescription).text(`Deal ${player.fireSpellProperties.fireDmg} points of fire damage - ${player.fireSpellProperties.burnChance *100}% chance for burn (-1hp per turn)`);
-    }
-    });
-
-$($upperLeftButton).on('pointerleave pointerout', function(){
-    $($commandDescription).text('');
-});
-
-//Top right
-$($upperRightButton).on('pointerdown pointerover', function(){
-    if(magicToggle === false && itemToggle === false && battleToggle === true){
-        $($commandDescription).text('Choose a spell to cast');
-    }
-    if(magicToggle === true && itemToggle === false && battleToggle === true){
-        $($commandDescription).text('Double click to return to main command screen');
-    }
-    if(magicToggle === false && itemToggle === true && battleToggle === true){
-        $($commandDescription).text(`Restore 50% of max HP (${Math.ceil(player.maxHP/2)} points)`);
-    }
-    }
-);
-
-$($upperRightButton).on('pointerleave pointerout', function(){
-    $($commandDescription).text('');
-});
-
-//Bottom left
-$($lowerLeftButton).on('pointerdown pointerover', function(){
-    if(itemToggle === false && magicToggle === false && battleToggle === true){
-        $($commandDescription).text('Use an item');
-    }
-    if(magicToggle === false && itemToggle === true && battleToggle === true){
-        $($commandDescription).text('Double click to return to main command screen');
-    }
-    if(magicToggle === true && itemToggle === false && battleToggle === true){
-        $($commandDescription).text(`Deal ${player.iceSpellProperties.iceDmg} points of ice damage - ${player.iceSpellProperties.frostbiteChance * 100}% chance of frostbite (enemy atk reduced by 10%)`);
-    }
-    }
-);
-
-$($lowerLeftButton).on('pointerleave pointerout', function(){
-    $($commandDescription).text('');
-});
-
-//Bottom right
-$($lowerRightButton).on('pointerdown pointerover',function(){
-    if(magicToggle === false && itemToggle === false && battleToggle === false && playerToggle === false){
-        $($commandDescription).text('Begin the battle');
-    }
-    if(magicToggle === true && itemToggle === false && battleToggle === true){
-        $($commandDescription).text(`Deal ${player.lightningSpellProperties.lightningDmg} points of lightning damage - ${player.lightningSpellProperties.shockChance * 100}% chance of shock (enemy cannot attack next turn)`);
-    }
-    if(magicToggle === false && itemToggle === true && battleToggle === true){
-        $($commandDescription).text(`Restore 50% of max MP (${Math.ceil(player.maxMP/2)} points)`);
-    }
-    if(gameOverToggle === true){
-        $($commandDescription).text(`Start over with current level`);
-    }
-    }
-);
-
-$($lowerRightButton).on('pointerleave pointerout', function(){
-    $($commandDescription).text('');
-});
-
-//Log clear button
-$('#clearlog').on('pointerdown pointerover', function(){
-    $($commandDescription).text(`Clear log of all text`);
-    });
-$('#clearlog').on('pointerleave pointerout', function(){
-    $($commandDescription).text('');
-});
-
-
 //All click commands
 //Show player stats
 $('#playerLevel').on('pointerdown pointerover', function(){
@@ -119,6 +39,7 @@ $('#playerLevel').on('pointerdown pointerover', function(){
 $("#playerLevel").on('pointerleave pointerout', function(){
     $($commandDescription).text('');
 });
+
 $('#playerLevel').on('pointerup',function(){
     if(showStats === false){
         showStats = true;
@@ -146,6 +67,27 @@ $('#playerLevel').on('pointerup',function(){
         showStats = false;
         $('#displayStats').empty();
         $('#displayStats').css('display', 'none');
+    }
+});
+
+$('#description').on('pointerup',function(){
+    if(commandScreen === false){
+        commandScreen = true;
+        $('#commandScreen').css('display', 'flex');
+        $('#commandScreen').append(`<p style="color: white">Command Description</p>`);
+        $('#commandScreen').append(`<p style="color: rgb(135,206,235)">Attack: Attack the enemy. Damage is based on player strength and enemy defense</p>`);
+        $('#commandScreen').append(`<p style="color: rgb(135,206,235)">Magic: Choose a spell to cast</p>`);
+        $('#commandScreen').append(`<p style="color: rgb(135,206,235)">Item: Choose an item</p>`);
+        $('#commandScreen').append(`<p style="color: rgb(135,206,235)">Return: Return to main command screen</p>`);
+        $('#commandScreen').append(`<p style="color: rgb(135,206,235)">Health potion: Restore 50% of max HP (${Math.ceil(player.maxHP/2)} points)</p>`);
+        $('#commandScreen').append(`<p style="color: rgb(135,206,235)">Mana potion: Restore 50% of max MP (${Math.ceil(player.maxMP/2)} points)</p>`);
+        $('#commandScreen').append(`<p style="color: orange">Fire spell: Deal ${player.fireSpellProperties.fireDmg} points of fire damage - ${player.fireSpellProperties.burnChance *100}% chance for burn (-1hp per turn))</p>`);
+        $('#commandScreen').append(`<p style="color: teal">Ice spell: Deal ${player.iceSpellProperties.iceDmg} points of ice damage - ${player.iceSpellProperties.frostbiteChance * 100}% chance of frostbite (enemy atk reduced by 10%)</p>`);
+        $('#commandScreen').append(`<p style="color: rgb(218,112,214)">Lightning spell: Deal ${player.lightningSpellProperties.lightningDmg} points of lightning damage - ${player.lightningSpellProperties.shockChance * 100}% chance of shock (enemy cannot attack next turn)</p>`);
+    } else if(commandScreen === true){
+        commandScreen = false;
+        $('#commandScreen').empty();
+        $('#commandScreen').css('display', 'none');
     }
 });
 
