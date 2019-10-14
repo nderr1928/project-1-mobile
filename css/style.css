@@ -198,7 +198,7 @@
         #currentEnemyWeakness{
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
             margin: 0;
             border: 1px black solid;
@@ -224,7 +224,7 @@
         #currentEnemyDebuffs{
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
             border: 1px black solid;
         }
@@ -352,6 +352,10 @@
             width: 90%;
             height: 70%;
             font-size: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         #upperleft-button, #upperright-button, #lowerleft-button{
@@ -393,3 +397,151 @@
             margin: 5px;
             text-align: left;
         }
+
+@media screen and (min-width: 600px){
+    /* Title screen */
+     #titleScreen > div> h1{
+        font-size: 120px;
+    }
+
+    #titleScreen > h4{
+        margin-bottom: 10%;
+    }
+
+    /* Instructions/Story Screen */
+    #storyBox{
+        top: 5%;
+        max-height: 500px;
+    }
+
+    #storyBox > h3{
+        text-align: center;
+        margin: 0;
+    }
+
+    #storyBox > p{
+        margin: 8px 8px 8px 8px;
+        font-size: 20px;
+    }
+
+    #startGame{
+        bottom: 7%;
+    }
+
+/* Game Screen */
+    #gameScreen{
+        display: none;
+        grid-template-rows: 5% 20% 20% 20% 7% 15% 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-areas: 
+            "gameInfo gameInfo gameInfo gameInfo gameInfo gameInfo"
+            "log enemyImage enemyImage enemyImage enemyImage enemyHP"
+            "log enemyImage enemyImage enemyImage enemyImage enemyWeakness"
+            "log enemyImage enemyImage enemyImage enemyImage enemyDebuffs"
+            "playerHP playerHP playerHP playerMP playerMP playerMP"
+            "commands commands commands commands commands commands"
+            "description description description description description description"
+    }
+
+    #gameInformation{
+        grid-row: 1;
+        grid-column: 1/ span 6;
+        grid-area: gameInfo;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        align-items: center;
+        justify-items: center;
+    }
+    
+    #log{
+        grid-area: log;
+        grid-row: 2/ span 3;
+        grid-column: 1;
+        display: grid;
+        grid-template-rows: 10% 90%;
+        grid-template-columns: 1fr;
+    }
+
+    #clearlog{
+        height: 100%;
+        align-self: center;
+        width: 100%;
+        justify-self: center;
+        text-align: center;
+        padding: 1px;
+        font-size: 100%;
+    }
+
+    #updates{
+        grid-row: 2;
+        width: 100%;
+        grid-column: 1/ span 3;
+        text-align: left;
+    }
+
+    #enemy-image-zone{
+        grid-area: enemyImage;
+        grid-column: 2/ span 4;
+        grid-row: 2/ span 3;
+    }
+
+    #enemyHP{
+        grid-area: enemyHP;
+        grid-column: 6;
+        grid-row: 2;
+        grid-template-rows: 15% 85%;
+    }
+
+    #enemyCurrentHP{
+        font-size: 30px;
+        margin: 0;
+    }
+
+    #enemyWeakness{
+        grid-area: enemyWeakness;
+        grid-column: 6;
+        grid-row: 3;
+        grid-template-rows: 15% 85%;
+    }
+
+    #enemyDebuffs{
+        grid-area: enemyDebuffs;
+        grid-column: 6;
+        grid-row: 4;
+        grid-template-rows: 15% 85%;
+    }
+
+    #playerHP{
+        grid-area: playerHP;
+        grid-row: 5;
+        grid-column: 1/ span 3;
+    }
+
+    #playerMP{
+        grid-area: playerMP;
+        grid-row: 5;
+        grid-column: 4/ span 6;
+    }
+
+    #combat-block{
+        grid-area: commands;
+        grid-row: 6;
+        grid-column: 1/ span 6;
+    }
+
+    #description{
+        grid-area: description;
+        grid-row: 7;
+        grid-column: 1/ span 6;
+        font-size: 15px;
+    }
+
+    #displayStats{
+        left: 35%;
+        top: 10%;
+        max-height: 600px;
+        overflow: scroll;
+    }
+    
+}

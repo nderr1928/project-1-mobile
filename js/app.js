@@ -711,7 +711,7 @@ selectEnemy(){
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').text(`${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -744,7 +744,7 @@ selectEnemy(){
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').text(`${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -777,7 +777,7 @@ selectEnemy(){
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').text(`${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -810,7 +810,7 @@ selectEnemy(){
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').text(`${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -843,7 +843,7 @@ selectEnemy(){
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').text(`${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -876,7 +876,7 @@ selectEnemy(){
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').text(`${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -909,7 +909,7 @@ selectEnemy(){
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').text(`${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
@@ -942,7 +942,7 @@ selectEnemy(){
         $('#enemy-image').css('height', game.currentEnemy.height);
         $('#enemy-image').css('width', game.currentEnemy.width);
         $('#enemy-image').css('background-image', game.currentEnemy.imageURL);
-        $('#enemyCurrentHP').append(`<h6>${game.currentEnemy.HP}`);
+        $('#enemyCurrentHP').text(`${game.currentEnemy.HP}`);
         if(game.currentEnemy.fireWeakness === true){
             $('#currentEnemyWeakness').append('<p style="color: orange">Fire</p>');
         }
