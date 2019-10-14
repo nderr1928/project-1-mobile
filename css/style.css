@@ -398,7 +398,7 @@
             text-align: left;
         }
 
-@media screen and (min-width: 600px){
+@media screen and (min-width: 800px){
     /* Title screen */
      #titleScreen > div> h1{
         font-size: 120px;
